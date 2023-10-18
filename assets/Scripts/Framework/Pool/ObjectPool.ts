@@ -30,35 +30,63 @@ export default class ObjectPool {
 
     /**
      * 取出指定节点
+     * @param name 节点预制体名字
+     * @param parent 节点创建出来后的父节点
+     * @returns 一个异步的cc.node对象，需要用await接收
      */
-    public Spawn(name:string,parent:cc.Node):cc.Node
+    public async Spawn(name:string,parent:cc.Node):Promise<cc.Node>
+    {
+        return new Promise<cc.Node>(async (resovlve)=>{
+            let pool:SubPool=null;
+            if(!this.pools.has(name))
+            {
+                await this.RegisterNew(name,parent);
+            }
+            pool=this.pools.get(name);
+            resovlve(pool.Spawn());
+        })
+    }
+    /**
+     * 回收指定节点
+     * @param node 要回收的节点
+     */
+    public UnSpawn(node:cc.Node)
     {
         let pool:SubPool=null;
-        if(!this.pools.has(name))
-        {
-            this.RegisterNew(name,parent);
-        }
-        pool=this.pools.get(name);
-        return pool.Spawn();
+        this.pools.forEach((value,key)=>{
+            if(value.Contains(node))
+            {
+                pool=value;
+                return;
+            }
+        })
+        pool.UnSpawn(node);
+    }
+    /**
+     * 回收所有节点
+     */
+    public UnSpawnAll()
+    {
+        this.pools.forEach((value,key)=>{
+            value.UnSpawnAll();
+        })
+    }
+    /**
+     *  清除所有对象池
+     */
+    public Clear()
+    {
+        this.pools.clear();
     }
     /**
      * 新建一个对象池
      * @param name 对象池名字
-     * @param parent 对象池所在位置
+     * @param parent 对象池父节点
      */
-    RegisterNew(name:string,parent:cc.Node)
+    async RegisterNew(name:string,parent:cc.Node)
     {
-        BundleManager.bundleMap.get("ObjectPool").load(name,(err:Error,node:cc.Prefab)=>{
-            if(err)
-            {
-                console.error(err);
-                return;
-            }
-            else
-            {
-                let pool=new SubPool(node,parent);
-                this.pools.set(pool.poolName,pool);
-            }
-        });
+        let node=await BundleManager.load<cc.Prefab>(name,"ObjectPool");
+        let pool=new SubPool(node,parent);
+        this.pools.set(pool.poolName,pool);
     }
 }

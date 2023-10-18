@@ -11,9 +11,8 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Share extends IResultAble {
-    constructor()
-    {
-        super();
+    protected onLoad(): void {
+        super.onLoad();
     }
     public onSpawn() {
         console.log("share被取出");

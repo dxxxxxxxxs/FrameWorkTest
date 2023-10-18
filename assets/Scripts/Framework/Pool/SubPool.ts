@@ -46,7 +46,7 @@ export default class SubPool {
     }
     public UnSpawn(node:cc.Node)
     {
-        if(this.nodeArray.indexOf(node)>-1)
+        if(this.Contains(node))
         {
             node.emit("UnSpawn");
             node.active=false;
@@ -61,5 +61,8 @@ export default class SubPool {
             }
         })
     }
-    
+    public Contains(node:cc.Node):boolean
+    {
+        return this.nodeArray.indexOf(node)>-1;
+    }
 }

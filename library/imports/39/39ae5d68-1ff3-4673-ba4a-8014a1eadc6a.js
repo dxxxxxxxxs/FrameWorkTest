@@ -81,15 +81,11 @@ var UI = /** @class */ (function (_super) {
     UI.prototype.onLoad = function () {
         this.addEvent();
         this.initUI();
-        var share = Game_1.default.ObjectPool.get("share");
-        share.setParent(this.node);
-        share.setPosition(360, 640);
-        console.log(share.getPosition());
         this.initBundle();
     };
     UI.prototype.initBundle = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var audioNode;
+            var audioNode, share;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -101,6 +97,14 @@ var UI = /** @class */ (function (_super) {
                     case 1:
                         //await BundleManager.loadBundle("Prefab");
                         _a.sent();
+                        return [4 /*yield*/, BundleManager_1.default.loadBundle("ObjectPool")];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, Game_1.default.ObjectPool.Spawn("share", this.node)];
+                    case 3:
+                        share = _a.sent();
+                        share.setPosition(360, 640);
+                        console.log(share.getPosition());
                         return [2 /*return*/];
                 }
             });

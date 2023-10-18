@@ -9,6 +9,10 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default abstract class IResultAble extends cc.Component {
+    protected onLoad(): void {
+        this.node.on("OnSpawn",this.onSpawn);
+        this.node.on("UnSpawn",this.onSpawn);
+    }
     /**
      * 取出节点时执行
      */

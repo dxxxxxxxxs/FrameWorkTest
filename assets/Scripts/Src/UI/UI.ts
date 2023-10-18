@@ -20,11 +20,6 @@ export default class UI extends cc.Component {
     onLoad () {
         this.addEvent();
         this.initUI();
-
-        let share=Game.ObjectPool.get("share");
-        share.setParent(this.node);
-        share.setPosition(360,640);
-        console.log(share.getPosition());
         this.initBundle();
     }
     public async initBundle()
@@ -34,6 +29,10 @@ export default class UI extends cc.Component {
         audioNode.addComponent(AudioRoot);
         //await BundleManager.loadBundle("Prefab");
         await BundleManager.loadBundle("Audio");
+        await BundleManager.loadBundle("ObjectPool");
+        let share=await Game.ObjectPool.Spawn("share",this.node);
+        share.setPosition(360,640);
+        console.log(share.getPosition());
         // let Prefab=await BundleManager.load<cc.Prefab>("GameRWPanel","Prefab");
         // let node=cc.instantiate(Prefab);
         // node.setParent(cc.director.getScene());

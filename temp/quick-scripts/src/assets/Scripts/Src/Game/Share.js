@@ -34,8 +34,11 @@ var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var Share = /** @class */ (function (_super) {
     __extends(Share, _super);
     function Share() {
-        return _super.call(this) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
+    Share.prototype.onLoad = function () {
+        _super.prototype.onLoad.call(this);
+    };
     Share.prototype.onSpawn = function () {
         console.log("share被取出");
     };

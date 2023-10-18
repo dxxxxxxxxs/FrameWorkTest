@@ -35,6 +35,10 @@ var IResultAble = /** @class */ (function (_super) {
     function IResultAble() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    IResultAble.prototype.onLoad = function () {
+        this.node.on("OnSpawn", this.onSpawn);
+        this.node.on("UnSpawn", this.onSpawn);
+    };
     IResultAble = __decorate([
         ccclass
     ], IResultAble);

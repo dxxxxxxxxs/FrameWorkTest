@@ -50,7 +50,7 @@ var SubPool = /** @class */ (function () {
         return go;
     };
     SubPool.prototype.UnSpawn = function (node) {
-        if (this.nodeArray.indexOf(node) > -1) {
+        if (this.Contains(node)) {
             node.emit("UnSpawn");
             node.active = false;
         }
@@ -62,6 +62,9 @@ var SubPool = /** @class */ (function () {
                 _this.UnSpawn(node);
             }
         });
+    };
+    SubPool.prototype.Contains = function (node) {
+        return this.nodeArray.indexOf(node) > -1;
     };
     SubPool = __decorate([
         ccclass
