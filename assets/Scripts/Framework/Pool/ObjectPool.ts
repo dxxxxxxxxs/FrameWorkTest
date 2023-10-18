@@ -81,7 +81,7 @@ export default class ObjectPool {
     /**
      * 新建一个对象池
      * @param name 对象池名字
-     * @param parent 对象池父节点
+     * @param parent 对象池中所有对象的父节点
      */
     async RegisterNew(name:string,parent:cc.Node)
     {

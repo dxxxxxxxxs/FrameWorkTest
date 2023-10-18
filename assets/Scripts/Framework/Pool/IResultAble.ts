@@ -11,7 +11,7 @@ const {ccclass, property} = cc._decorator;
 export default abstract class IResultAble extends cc.Component {
     protected onLoad(): void {
         this.node.on("OnSpawn",this.onSpawn);
-        this.node.on("UnSpawn",this.onSpawn);
+        this.node.on("UnSpawn",this.unSpawn);
     }
     /**
      * 取出节点时执行

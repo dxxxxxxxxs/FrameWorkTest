@@ -32,7 +32,9 @@ export default class UI extends cc.Component {
         await BundleManager.loadBundle("ObjectPool");
         let share=await Game.ObjectPool.Spawn("share",this.node);
         share.setPosition(360,640);
-        console.log(share.getPosition());
+        this.scheduleOnce(()=>{
+            Game.ObjectPool.UnSpawn(share);
+        },3)
         // let Prefab=await BundleManager.load<cc.Prefab>("GameRWPanel","Prefab");
         // let node=cc.instantiate(Prefab);
         // node.setParent(cc.director.getScene());

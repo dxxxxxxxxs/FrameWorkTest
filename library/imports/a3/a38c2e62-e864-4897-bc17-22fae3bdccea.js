@@ -84,21 +84,22 @@ var AudioManager = /** @class */ (function () {
      * @param bundle 如果没错应该是AssetBundle的分包加载的名称，比如game，hall什么的
      */
     AudioManager.prototype.playMusic = function (name, bundle) {
+        var _this = this;
         if (bundle === void 0) { bundle = "Audio"; }
-        return __awaiter(this, void 0, void 0, function () {
-            var audioSource, clip;
+        var audioSource = AudioManager_1.audioSource;
+        var complete = (function () { return __awaiter(_this, void 0, void 0, function () {
+            var clip;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        audioSource = AudioManager_1.audioSource;
-                        return [4 /*yield*/, BundleManager_1.default.load(name, bundle)];
+                    case 0: return [4 /*yield*/, BundleManager_1.default.load(name, bundle)];
                     case 1:
                         clip = _a.sent();
                         cc.audioEngine.playMusic(clip, false);
                         return [2 /*return*/];
                 }
             });
-        });
+        }); });
+        complete();
     };
     AudioManager.prototype.playSound = function () {
     };

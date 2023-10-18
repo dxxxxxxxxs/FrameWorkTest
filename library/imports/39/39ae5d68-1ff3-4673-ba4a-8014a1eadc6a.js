@@ -104,7 +104,9 @@ var UI = /** @class */ (function (_super) {
                     case 3:
                         share = _a.sent();
                         share.setPosition(360, 640);
-                        console.log(share.getPosition());
+                        this.scheduleOnce(function () {
+                            Game_1.default.ObjectPool.UnSpawn(share);
+                        }, 3);
                         return [2 /*return*/];
                 }
             });

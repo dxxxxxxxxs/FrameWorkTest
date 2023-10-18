@@ -38,11 +38,14 @@ export class AudioManager {
      * @param name 要播放的音乐名字
      * @param bundle 如果没错应该是AssetBundle的分包加载的名称，比如game，hall什么的
      */
-    async playMusic(name:string,bundle="Audio")
+    playMusic(name:string,bundle="Audio")
     {
         const audioSource=AudioManager.audioSource!;
-        let clip=await BundleManager.load(name,bundle);
-        cc.audioEngine.playMusic(clip as cc.AudioClip, false);
+        let complete=(async ()=>{
+            let clip=await BundleManager.load(name,bundle);
+            cc.audioEngine.playMusic(clip as cc.AudioClip, false);
+        })
+        complete();
     }
     playSound()
     {
